@@ -1,12 +1,12 @@
 import uvicorn
 from fastapi import FastAPI, status
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import Response
 from faststream.nats.fastapi import NatsRouter, Logger
 from face_operations.models import FaceOperationJobFile, FaceSwapJobRequest
 from faststream.nats import NatsMessage
 from face_operations.service import FaceOperationsService
 
-router = NatsRouter("nats://localhost:4222")
+router = NatsRouter("nats://test-mq.orb.local:4222")
 
 
 @router.post("/start-face-swap")

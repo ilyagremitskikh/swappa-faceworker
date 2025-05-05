@@ -1,0 +1,10 @@
+   name: facefusion-env
+   channels:
+     - defaults
+     - conda-forge
+   dependencies:
+     - python=3.12
+     - pip=25.0
+     - ffmpeg
+     - pip:
+       - -r requirements.txt

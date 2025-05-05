@@ -23,10 +23,10 @@ logger = logging.getLogger(__name__)
 
 # Константы для конфигурации
 #TODO: Перенести в конфиг
-TEMP_DIR = os.environ.get("TEMP_DIR", "/workspaces/swappa/worker/tmp/facefusion")
-OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "/workspaces/swappa/worker/tmp/facefusion/output")
-FACEFUSION_SCRIPT = os.environ.get("FACEFUSION_SCRIPT", "/workspaces/swappa/worker/facefusion.py")
-SETTINGS_FILE = os.environ.get("SETTINGS_FILE", "/workspaces/swappa/worker/facefusion.ini")
+TEMP_DIR = os.environ.get("TEMP_DIR", "/tmp/")
+OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "/tmp/facefusion/output")
+FACEFUSION_SCRIPT = os.environ.get("FACEFUSION_SCRIPT", "facefusion.py")
+SETTINGS_FILE = os.environ.get("SETTINGS_FILE", "facefusion.ini")
 
 
 class FaceOperationsService:
