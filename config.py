@@ -12,21 +12,19 @@ class Config(BaseSettings):
     service_port: int
     log_level: str
 
-    #Processing Settings
+    # Processing Settings
     max_faces_for_classification: int
     execution_providers: list
 
-    #FaceSwap Configuration
+    # FaceSwap Configuration
     faceswap_default_processors: list
     faceswap_default_face_detector: str
     faceswap_default_face_selector_mode: str
-    
-    #Redis Configuration
-    redis_host: str
-    redis_port: int
-    redis_db: int
-    redis_url: str
-    
+
+    # Nats Configuration
+    nats_host: str
+    nats_port: int
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
