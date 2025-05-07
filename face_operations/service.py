@@ -10,6 +10,8 @@ from .handlers import (
     ChildProtectionHandler,
     DetectFacesHandler,
     DownloadImageHandler,
+    DownloadSourceMediaHandler,
+    DownloadTargetMediaHandler,
     ExecuteFaceSwapHandler,
     LoadImageHandler,
     PrepareCommandHandler,
@@ -22,7 +24,7 @@ from .pipeline import ProcessingPipeline
 logger = logging.getLogger(__name__)
 
 # Константы для конфигурации
-#TODO: Перенести в конфиг
+# TODO: Перенести в конфиг
 TEMP_DIR = os.environ.get("TEMP_DIR", "/tmp/")
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "/tmp/facefusion/output")
 FACEFUSION_SCRIPT = os.environ.get("FACEFUSION_SCRIPT", "facefusion.py")
@@ -71,10 +73,8 @@ class FaceOperationsService:
 
             # Получаем и возвращаем результат
             result = processed_context.get_result
-            
-            logger.info(
-                f"Верификация лица успешно завершена: {result}"
-            )
+
+            logger.info(f"Верификация лица успешно завершена: {result}")
             return result
 
         except Exception as e:
@@ -98,8 +98,8 @@ class FaceOperationsService:
             # Создаем конвейер обработки
             pipeline = ProcessingPipeline()
             # Используем универсальный обработчик с указанием поля
-            pipeline.add_handler(DownloadImageHandler(TEMP_DIR, prefix="source", field_name="source"))
-            pipeline.add_handler(DownloadImageHandler(TEMP_DIR, prefix="target", field_name="target"))
+            pipeline.add_handler(DownloadSourceMediaHandler(TEMP_DIR))
+            pipeline.add_handler(DownloadTargetMediaHandler(TEMP_DIR))
             pipeline.add_handler(PrepareOutputPathHandler(OUTPUT_DIR))
             pipeline.add_handler(
                 PrepareCommandHandler(FACEFUSION_SCRIPT, SETTINGS_FILE)

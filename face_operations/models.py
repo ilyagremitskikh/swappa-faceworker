@@ -36,6 +36,7 @@ class FaceSelectorMode(str, Enum):
 @dataclass
 class FaceDetectionJobRequest:
     """Запрос на выполнение FaceDetection."""
+
     image: FaceOperationJobFile
 
 
@@ -55,8 +56,8 @@ class FaceSwapJobRequest:
     """Запрос на выполнение FaceSwap."""
 
     id: str
-    source_image: FaceOperationJobFile
-    target_image: FaceOperationJobFile
+    source_media: FaceOperationJobFile
+    target_media: FaceOperationJobFile
     face_selector_mode: FaceSelectorMode
     processor: List[ProcessorType]
 

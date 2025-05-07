@@ -2,6 +2,13 @@ import uuid
 from pathlib import Path
 
 
+def parse_extension_from_url(url: str) -> str:
+    """
+    Парсит расширение из URL.
+    """
+    return Path(url).suffix
+
+
 def generate_output_path(output_dir: Path, suffix: str = ".jpg") -> Path:
     """
     Генерирует путь для выходного файла.

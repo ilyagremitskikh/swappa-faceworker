@@ -32,31 +32,29 @@ class FaceVerificationContext(ProcessingContext):
         self.face_landmarks_5: Optional[List] = None
         self.faces_count: Optional[int] = None
         self.face_classifications: Optional[List[Dict[str, Any]]] = None
-        
+
         # Поле для хранения итогового результата
         self.result: Optional[Dict[str, Any]] = None
-        
+
     @property
     def get_result(self) -> Dict[str, Any]:
         """Формирует результат верификации лица."""
         if self.has_error:
             return {"success": False, "error": str(self.error)}
-        
-        result = {
-            "success": True,
-            "faces_count": self.faces_count,
-            "faces": []
-        }
-        
+
+        result = {"success": True, "faces_count": self.faces_count, "faces": []}
+
         if self.faces_count and self.face_classifications:
             for i in range(self.faces_count):
                 face_data = {
-                    "bounding_box": self.bounding_boxes[i].tolist() if hasattr(self.bounding_boxes[i], 'tolist') else self.bounding_boxes[i],
+                    "bounding_box": self.bounding_boxes[i].tolist()
+                    if hasattr(self.bounding_boxes[i], "tolist")
+                    else self.bounding_boxes[i],
                     "confidence": float(self.face_scores[i]),
-                    "classification": self.face_classifications[i]
+                    "classification": self.face_classifications[i],
                 }
                 result["faces"].append(face_data)
-        
+
         self.result = result
         return result
 
@@ -67,8 +65,8 @@ class FaceSwapContext(ProcessingContext):
     def __init__(self, job: FaceSwapJobRequest):
         super().__init__()
         self.job = job
-        self.source_image_url = job.source_image.file_url
-        self.target_image_url = job.target_image.file_url
+        self.source_url = job.source_media.file_url
+        self.target_url = job.target_media.file_url
         self.source_path: Optional[Path] = None
         self.target_path: Optional[Path] = None
         self.output_path: Optional[Path] = None
