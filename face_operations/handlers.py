@@ -13,9 +13,10 @@ from facefusion.face_classifier import classify_face
 from facefusion.face_classifier import pre_check as classifier_pre_check
 from facefusion.face_detector import detect_faces
 from facefusion.face_detector import pre_check as detector_pre_check
-
+from config import config
 from .contexts import FaceSwapContext, FaceVerificationContext, ProcessingContext
 from .models import FaceOperationJobStatus, FaceSwapJobResponse
+
 
 logger = logging.getLogger(__name__)
 
@@ -170,7 +171,7 @@ class DetectFacesHandler(Handler):
         """Инициализирует необходимые параметры state_manager для работы детектора лиц."""
         # Установка основных параметров детектора лиц
         if not state_manager.get_item("face_detector_model"):
-            state_manager.init_item("face_detector_model", "yoloface")
+            state_manager.init_item("face_detector_model", "yolo_face")
 
         if not state_manager.get_item("face_detector_size"):
             state_manager.init_item("face_detector_size", "640x640")
@@ -190,10 +191,10 @@ class DetectFacesHandler(Handler):
 
         # Установка параметров выполнения
         if not state_manager.get_item("execution_providers"):
-            state_manager.init_item("execution_providers", ["cpu"])
+            state_manager.init_item("execution_providers", config.execution_providers)
 
         if not state_manager.get_item("execution_device_id"):
-            state_manager.init_item("execution_device_id", 0)
+            state_manager.init_item("execution_device_id", config.execution_device_id)
 
         # Установка путей для конфигурации
         if not state_manager.get_item("config_path"):
@@ -319,10 +320,10 @@ class ClassifyFacesHandler(Handler):
 
         # Установка параметров выполнения
         if not state_manager.get_item("execution_providers"):
-            state_manager.init_item("execution_providers", ["cpu"])
+            state_manager.init_item("execution_providers", config.execution_providers)
 
         if not state_manager.get_item("execution_device_id"):
-            state_manager.init_item("execution_device_id", 0)
+            state_manager.init_item("execution_device_id", config.execution_device_id)
 
 
 class ChildProtectionHandler(Handler):

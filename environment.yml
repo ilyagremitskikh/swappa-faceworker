@@ -5,6 +5,7 @@
    dependencies:
      - python=3.12
      - pip=25.0
-     - ffmpeg
+     - ffmpeg=7.1.1
+     - libvorbis=1.3.7
      - pip:
        - -r requirements.txt

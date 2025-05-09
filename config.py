@@ -15,6 +15,7 @@ class Config(BaseSettings):
     # Processing Settings
     max_faces_for_classification: int
     execution_providers: list
+    execution_device_id: str
 
     # FaceSwap Configuration
     faceswap_default_processors: list
